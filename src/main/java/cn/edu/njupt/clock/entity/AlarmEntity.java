@@ -3,7 +3,7 @@ package cn.edu.njupt.clock.entity;
 import java.awt.*;
 import java.io.Serializable;
 
-public class AlarmEntity implements Serializable {
+public class AlarmEntity implements Serializable, Comparable {
 
     public static final long serialVersionUID = 1234567890L;
 
@@ -51,5 +51,14 @@ public class AlarmEntity implements Serializable {
                 ", minute=" + minute +
                 ", active=" + active +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(o instanceof AlarmEntity) {
+            AlarmEntity alarmEntity = (AlarmEntity)o;
+            return this.hour * 60 + this.minute - alarmEntity.hour * 60 + alarmEntity.minute;
+        }
+        throw new RuntimeException("Incoming data type is inconsistent.");
     }
 }
