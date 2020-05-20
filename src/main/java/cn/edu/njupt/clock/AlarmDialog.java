@@ -94,9 +94,13 @@ public class AlarmDialog extends JDialog {
         });
         dialog.jButtonRemind.addActionListener(e -> {
             dialog.result = 0;
+            dialog.setVisible(false);
+            dialog.dispose();
         });
         dialog.jButtonClose.addActionListener(e -> {
             dialog.result = 1;
+            dialog.setVisible(false);
+            dialog.dispose();
         });
         dialog.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
