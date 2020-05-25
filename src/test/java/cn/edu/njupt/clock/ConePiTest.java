@@ -1,4 +1,4 @@
-package cn.edu.njupt.clock.test;
+package cn.edu.njupt.clock;
 
 import cn.edu.njupt.clock.entity.AlarmEntity;
 import cn.edu.njupt.clock.utils.ObjectStreamUtils;

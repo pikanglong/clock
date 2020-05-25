@@ -2,15 +2,18 @@ package cn.edu.njupt.clock;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
 /**
- * @author gaofan
+ * @author gaofan, pikanglong
  */
 public class Main extends JFrame {
-    private JPanel parent = new JPanel();
-    private JLabel title = new JLabel("世界时钟");
+    private JPanel clock = new JPanel();
+    private JPanel alarm = new JPanel();
+    private JPanel watch = new JPanel();
     private final String[] locals = new String[]{
             "-7,洛杉矶",
             "-4,纽约",
@@ -23,14 +26,12 @@ public class Main extends JFrame {
 
     {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        title.setForeground(Color.WHITE);
-        title.setFont(new Font("PinFang SC",Font.BOLD,20));
-        parent.setBackground(Color.BLACK);
-        parent.setLayout(new GridLayout(locals.length,1));
+        clock.setBackground(Color.BLACK);
+        clock.setLayout(new GridLayout(locals.length,1));
         for(String item : locals){
             String[] args = item.split(",");
             LocalTimeLabel localTimePanel = new LocalTimeLabel(ZoneId.of("GMT" + args[0]),args[1]);
-            parent.add(localTimePanel);
+            clock.add(localTimePanel);
             localTimePanelList.add(localTimePanel);
         }
         Timer timer = new Timer(59 * 1000, e ->{
@@ -40,11 +41,48 @@ public class Main extends JFrame {
         });
         timer.start();
 
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().setBackground(Color.BLACK);
-        getContentPane().add(title,"North");
-        getContentPane().add(parent,"Center");
-        getContentPane().add(new Alarm(20,26,this),"South");
+        alarm.add(new Alarm(23, 33, this));
+
+        watch.setBackground(Color.BLACK);
+
+        JPanel body = new JPanel();
+        JPanel foot = new JPanel();
+        CardLayout cardLayout = new CardLayout();
+        body.setLayout(cardLayout);
+        body.add("clock", clock);
+        body.add("alarm", alarm);
+        body.add("watch", watch);
+
+        JButton clockButton = new JButton("时间");
+        clockButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(body, "clock");
+            }
+        });
+
+        JButton alarmButton = new JButton("闹钟");
+        alarmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(body, "alarm");
+            }
+        });
+
+        JButton watchButton = new JButton("倒计时");
+        watchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                cardLayout.show(body, "watch");
+            }
+        });
+
+        foot.add(clockButton);
+        foot.add(alarmButton);
+        foot.add(watchButton);
+
+        getContentPane().add(body);
+        getContentPane().add(foot, BorderLayout.SOUTH);
         pack();
     }
 
