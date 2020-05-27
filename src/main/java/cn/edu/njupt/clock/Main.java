@@ -43,7 +43,8 @@ public class Main extends JFrame {
 
         alarm.add(new Alarm(23, 33, this));
 
-        watch.setBackground(Color.BLACK);
+        Watch.init(watch, this);
+//        watch.add(new Watch(1,1,1,this));
 
         JPanel body = new JPanel();
         JPanel foot = new JPanel();

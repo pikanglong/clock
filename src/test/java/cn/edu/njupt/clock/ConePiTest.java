@@ -1,13 +1,12 @@
 package cn.edu.njupt.clock;
 
 import cn.edu.njupt.clock.entity.AlarmEntity;
+import cn.edu.njupt.clock.utils.MP3Player;
 import cn.edu.njupt.clock.utils.ObjectStreamUtils;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 
 public class ConePiTest {
 
@@ -39,6 +38,19 @@ public class ConePiTest {
         Iterator it = result.iterator();
         while(it.hasNext()) {
             System.out.println(it.next());
+        }
+    }
+
+    @Test
+    public void testMP3Player() {
+        File file = new File("src/main/resources/sound/watch.mp3");
+        System.out.println(file.getAbsolutePath());
+        MP3Player mp3Player = new MP3Player(file.getAbsolutePath());
+        mp3Player.start();
+        Scanner scanner = new Scanner(System.in);
+        int off = scanner.nextInt();
+        if(off == 0) {
+            mp3Player.stop();
         }
     }
 }
