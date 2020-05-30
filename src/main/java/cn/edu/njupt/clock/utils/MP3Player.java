@@ -13,6 +13,7 @@ public class MP3Player extends Thread {
         this.filename = filename;
     }
 
+    @Override
     public void run() {
         try {
             BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(filename));
@@ -20,6 +21,8 @@ public class MP3Player extends Thread {
             player.play();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            player.close();
         }
     }
 }

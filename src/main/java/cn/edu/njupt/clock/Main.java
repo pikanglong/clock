@@ -1,9 +1,11 @@
 package cn.edu.njupt.clock;
 
+import cn.edu.njupt.clock.component.Alarm;
+import cn.edu.njupt.clock.component.LocalTimeLabel;
+import cn.edu.njupt.clock.component.Watch;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.ZoneId;
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ public class Main extends JFrame {
     private ArrayList<LocalTimeLabel> localTimePanelList = new ArrayList<>();
 
     {
+        setLookAndFeel();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         clock.setBackground(Color.BLACK);
         clock.setLayout(new GridLayout(locals.length,1));
@@ -34,17 +37,16 @@ public class Main extends JFrame {
             clock.add(localTimePanel);
             localTimePanelList.add(localTimePanel);
         }
-        Timer timer = new Timer(59 * 1000, e ->{
+        Timer timer = new Timer( 1000, e ->{
             for(LocalTimeLabel panel:localTimePanelList){
                 panel.updateTime();
             }
         });
         timer.start();
 
-        alarm.add(new Alarm(23, 33, this));
+        alarm.add(new Alarm(9, 0, this));
 
         Watch.init(watch, this);
-//        watch.add(new Watch(1,1,1,this));
 
         JPanel body = new JPanel();
         JPanel foot = new JPanel();
@@ -54,29 +56,14 @@ public class Main extends JFrame {
         body.add("alarm", alarm);
         body.add("watch", watch);
 
-        JButton clockButton = new JButton("时间");
-        clockButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(body, "clock");
-            }
-        });
+        JButton clockButton = new JButton("世界时间");
+        clockButton.addActionListener(actionEvent -> cardLayout.show(body, "clock"));
 
         JButton alarmButton = new JButton("闹钟");
-        alarmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(body, "alarm");
-            }
-        });
+        alarmButton.addActionListener(actionEvent -> cardLayout.show(body, "alarm"));
 
         JButton watchButton = new JButton("倒计时");
-        watchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                cardLayout.show(body, "watch");
-            }
-        });
+        watchButton.addActionListener(actionEvent -> cardLayout.show(body, "watch"));
 
         foot.add(clockButton);
         foot.add(alarmButton);
@@ -84,7 +71,22 @@ public class Main extends JFrame {
 
         getContentPane().add(body);
         getContentPane().add(foot, BorderLayout.SOUTH);
+        setTitle("时钟");
         pack();
+    }
+
+    private void setLookAndFeel() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
