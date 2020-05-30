@@ -42,10 +42,7 @@ public class Watch{
     private static ActionListener actionListener2 = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            timer.cancel();
-            timer = null;
-            timerTask.cancel();
-            timerTask = null;
+            cancel();
         }
     };
 
@@ -132,30 +129,8 @@ public class Watch{
             minute = 59;
             second = 59;
         } else {
-            timer.cancel();
-            timer = null;
-            timerTask.cancel();
-            timerTask = null;
             WatchDialog.create(frame);
-            hPanel.remove(hLabel);
-            mPanel.remove(mLabel);
-            sPanel.remove(sLabel);
-            SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 99, 1);
-            hSpinner = new JSpinner(model);
-            hSpinner.setFont(new Font("SansSerif",Font.PLAIN,38));
-            hPanel.add(hSpinner, "West");
-            model = new SpinnerNumberModel(0, 0, 59, 1);
-            mSpinner = new JSpinner(model);
-            mSpinner.setFont(new Font("SansSerif",Font.PLAIN,38));
-            mPanel.add(mSpinner, "West");
-            model = new SpinnerNumberModel(0, 0, 59, 1);
-            sSpinner = new JSpinner(model);
-            sSpinner.setFont(new Font("SansSerif",Font.PLAIN,38));
-            sPanel.add(sSpinner, "West");
-            button.setText("开始");
-            button.removeActionListener(actionListener2);
-            button.addActionListener(actionListener1);
-            parent.repaint();
+            cancel();
             return;
         }
         paint();
@@ -176,6 +151,38 @@ public class Watch{
         sLabel.setFont(new Font("SansSerif",Font.PLAIN,38));
         sLabel.setText(String.format("%02d", second));
         sPanel.add(sLabel, "West");
+
+        parent.repaint();
+    }
+
+    private static void cancel() {
+        timer.cancel();
+        timer = null;
+        timerTask.cancel();
+        timerTask = null;
+
+        hPanel.remove(hLabel);
+        mPanel.remove(mLabel);
+        sPanel.remove(sLabel);
+
+        SpinnerNumberModel model = new SpinnerNumberModel(0, 0, 99, 1);
+        hSpinner = new JSpinner(model);
+        hSpinner.setFont(new Font("SansSerif",Font.PLAIN,38));
+        hPanel.add(hSpinner, "West");
+
+        model = new SpinnerNumberModel(0, 0, 59, 1);
+        mSpinner = new JSpinner(model);
+        mSpinner.setFont(new Font("SansSerif",Font.PLAIN,38));
+        mPanel.add(mSpinner, "West");
+
+        model = new SpinnerNumberModel(0, 0, 59, 1);
+        sSpinner = new JSpinner(model);
+        sSpinner.setFont(new Font("SansSerif",Font.PLAIN,38));
+        sPanel.add(sSpinner, "West");
+
+        button.setText("开始");
+        button.removeActionListener(actionListener2);
+        button.addActionListener(actionListener1);
 
         parent.repaint();
     }

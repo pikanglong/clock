@@ -25,8 +25,8 @@ public class Alarm extends JPanel {
     private JSpinner mSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 59, 1));
     private JButton apply = new JButton("设置时间");
 
-    private Label time = new Label();
-    private Label current = new Label();
+    private JLabel time = new JLabel();
+    private JLabel current = new JLabel();
     private JFrame parent;
 
     public Alarm(int hour, int minute, JFrame parent){
