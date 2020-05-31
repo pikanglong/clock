@@ -16,7 +16,7 @@ public class MP3Player extends Thread {
     @Override
     public void run() {
         try {
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(filename));
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(this.getContextClassLoader().getResourceAsStream(filename));
             player = new AdvancedPlayer(bufferedInputStream);
             player.play();
         } catch (Exception e) {

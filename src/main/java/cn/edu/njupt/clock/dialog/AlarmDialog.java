@@ -79,8 +79,7 @@ public class AlarmDialog extends JDialog {
     int result = 0;
     public static int create(JFrame parent) {
         AlarmDialog dialog = new AlarmDialog(parent, true);
-        File file = new File("src/main/resources/sound/alarm.mp3");
-        MP3Player mp3 = new MP3Player(file.getAbsolutePath());
+        MP3Player mp3 = new MP3Player("sound/alarm.mp3");
         mp3.start();
         dialog.jButtonRemind.addActionListener(e -> {
             mp3.stop();

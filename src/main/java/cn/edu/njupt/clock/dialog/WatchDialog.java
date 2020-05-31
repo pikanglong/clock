@@ -38,8 +38,7 @@ public class WatchDialog extends JDialog {
 
     public static void create(JFrame parent) {
         WatchDialog watchDialog = new WatchDialog(parent, true);
-        File file = new File("src/main/resources/sound/watch.mp3");
-        mp3Player = new MP3Player(file.getAbsolutePath());
+        mp3Player = new MP3Player("sound/watch.mp3");
         mp3Player.start();
         watchDialog.jButton.addActionListener(e -> {
             watchDialog.setVisible(false);

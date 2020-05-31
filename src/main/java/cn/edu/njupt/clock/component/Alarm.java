@@ -79,7 +79,7 @@ public class Alarm extends JPanel {
         }
         int result = AlarmDialog.create(parent);
         if(result == 0){
-            pool.schedule(this::active,10,TimeUnit.SECONDS);
+            pool.schedule(this::active,10,TimeUnit.MINUTES);
         }
     }
 }
