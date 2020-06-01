@@ -21,6 +21,8 @@ public class Main extends JFrame {
 
     {
         setLookAndFeel();
+        //显示在屏幕中间
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         alarm.add(new Alarm(9, 0, this));
