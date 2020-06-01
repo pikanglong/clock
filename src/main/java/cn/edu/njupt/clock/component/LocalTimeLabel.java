@@ -48,6 +48,5 @@ public class LocalTimeLabel extends JPanel {
         date.setText(cur.getMonthValue() + "月" + cur.getDayOfMonth() + "日" + cur.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.CHINA));
         local.setText(zoneText);
         time.setText(String.format("%02d:%02d",cur.getHour(),cur.getMinute()));
-
     }
 }
